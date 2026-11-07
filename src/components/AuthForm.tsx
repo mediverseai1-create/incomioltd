@@ -44,7 +44,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
       {mode !== 'forgot' && <div className="mb-3"><label className="label" htmlFor="password">{mode === 'reset' ? 'New password' : 'Password'}</label><input id="password" name="password" type="password" required minLength={8} autoComplete={mode === 'login' ? 'current-password' : 'new-password'} className="input" /></div>}
       {err && <p role="alert" className="mb-3 text-sm text-red-700">{err}</p>}
       {info && <p role="status" className="mb-3 text-sm text-forest">{info}</p>}
-      <button className="btn btn-primary w-full" disabled={busy}>{busy ? 'Please wait…' : mode === 'login' ? 'Sign in' : mode === 'signup' ? 'Create account' : mode === 'forgot' ? 'Send reset link' : 'Update password'}</button>
+      <button className="btn btn-amber w-full" disabled={busy}>{busy ? 'Please wait…' : mode === 'login' ? 'Sign in' : mode === 'signup' ? 'Create account' : mode === 'forgot' ? 'Send reset link' : 'Update password'}</button>
       <div className="mt-4 space-y-1 text-center text-sm text-ink-600">
         {mode === 'login' && <><div><Link className="underline" href="/forgot-password">Forgot password?</Link></div><div>New here? <Link className="underline" href="/signup">Create an account</Link></div></>}
         {mode === 'signup' && <div>Already have an account? <Link className="underline" href="/login">Sign in</Link></div>}

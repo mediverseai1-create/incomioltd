@@ -1,12 +1,11 @@
 import { Suspense } from 'react';
 import { AuthForm } from '@/components/AuthForm';
-import { Logo } from '@/components/ui';
 
 export const metadata = { title: 'Forgot password' };
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 px-4">
-      <Logo />
+    <main className="dark-site flex min-h-screen flex-col items-center justify-center gap-6 px-4">
+      <span className="text-2xl font-bold tracking-wide text-[#FFB75A]">INCOMIO</span>
       <Suspense><AuthForm mode="forgot" /></Suspense>
     </main>
   );

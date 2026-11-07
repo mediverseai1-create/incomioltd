@@ -22,3 +22,16 @@ h1, h2, h3, .font-display { font-family: Fraunces, Georgia, serif; letter-spacin
 @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .rise { animation: rise .35s ease both; }
 @media (prefers-reduced-motion: reduce) { .rise { animation: none; } }
+
+/* Dark marketing theme */
+.dark-site { background: #000; color: #fff; font-family: Montserrat, Inter, sans-serif; }
+.dark-site h1, .dark-site h2, .dark-site h3 { font-family: Montserrat, sans-serif; letter-spacing: -0.02em; font-weight: 700; }
+.dark-site .btn { border-radius: 8px; font-weight: 600; }
+.btn-amber { background: #FFB75A; color: #111; }
+.btn-amber:hover { background: #ffc57a; }
+.btn-outline { border: 1.5px solid #FFB75A; color: #fff; }
+.btn-outline:hover { background: #FFB75A22; }
+.coin { width: 52px; height: 52px; border-radius: 9999px; background: radial-gradient(circle at 30% 30%, #ffd98a, #e59a2d 70%); box-shadow: 0 6px 18px #e59a2d55; display:flex; align-items:center; justify-content:center; color:#7a4a05; font-weight:800; }
+@keyframes floaty { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-10px) } }
+.floaty { animation: floaty 5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .floaty { animation: none; } }

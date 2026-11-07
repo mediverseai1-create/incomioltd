@@ -1,118 +1,113 @@
 import Link from 'next/link';
-import { Logo } from '@/components/ui';
 import { PLANS, PLAN_KEYS } from '@/lib/plans';
 
 const CAPS = [
   ['Receivables intelligence', 'See what is owed, what is overdue and how balances age, per customer and per currency. Every figure is calculated from your records.'],
   ['Payment reconciliation', 'Incomio proposes invoice-to-payment matches with the evidence behind each one. Nothing is marked paid until your team approves it.'],
-  ['Cash-flow forecasting', 'Best, expected and conservative scenarios built from open invoices, customer payment timing and known obligations, with assumptions shown.'],
+  ['Cash-flow forecasting', 'Best, expected and conservative scenarios built from open invoices, payment timing and known obligations, with assumptions shown.'],
   ['Collections intelligence', 'A transparent priority score, collection history and AI-drafted reminders that stay drafts until a person approves them.'],
   ['Profitability & multi-business', 'Revenue, collected income, discounts and margins by customer, service and business unit, only where cost data exists.'],
   ['Ask Incomio', 'Ask questions in plain language and get answers grounded in your own records, with the invoices and customers behind them.'],
 ];
-const STEPS = [['Import', 'Upload CSV, XLSX or PDF. Map columns, validate and preview before saving.'], ['Understand', 'Deterministic calculations produce receivables, aging and payment behaviour.'], ['Analyse', 'AI agents explain findings and suggest actions using those calculated figures.'], ['Approve', 'Finance staff review matches, reminders and actions. Every decision is audit-logged.']];
+const STEPS = [['Import', 'Upload CSV, XLSX or PDF. Map columns, validate and preview before saving.'], ['Understand', 'Deterministic calculations produce receivables, aging and payment behaviour.'], ['Analyse', 'AI agents explain findings and suggest actions from those calculated figures.'], ['Approve', 'Finance staff review matches, reminders and actions. Every decision is audit-logged.']];
 const USE = [['Agencies & professional services', 'Track retainers and project invoices that clients pay late.'], ['Distributors & B2B', 'Reconcile high payment volumes against many open invoices.'], ['Accounting & bookkeeping firms', 'Give each client a clear view of receivables and collections.'], ['Multi-branch groups', 'Compare receivables and cash pressure across branches and subsidiaries.']];
 const FAQ = [
   ['Does Incomio move money or contact my customers?', 'No. Incomio analyses, recommends and drafts. It cannot initiate payments, change bank records or send customer messages. Every consequential action needs human approval.'],
   ['Are the numbers calculated by AI?', 'No. Totals, aging, balances and forecasts come from deterministic code with decimal-safe arithmetic. AI explains and recommends based on those results.'],
-  ['What data can I import?', 'CSV, XLSX and PDF/image documents for invoices and receipts, plus bank exports, expenses, supplier obligations and business units. Live accounting integrations are coming soon and are clearly marked as such.'],
+  ['What data can I import?', 'CSV, XLSX and PDF/image documents for invoices and receipts, plus bank exports, expenses, supplier obligations and business units. Live integrations are coming soon and are marked as such.'],
   ['Does it support multiple currencies?', 'Yes. Currencies are stored explicitly and never combined into one total without a recorded conversion rate.'],
-  ['Can I trust the forecast?', 'Forecasts are estimates built from stated assumptions and your payment history. They are not guaranteed balances, and confidence is shown with each one.'],
+  ['Can I trust the forecast?', 'Forecasts are estimates built from stated assumptions and your payment history, not guaranteed balances. Confidence is shown with each one.'],
   ['Is Incomio an accounting system or bank?', 'No. It is analytical software and not a replacement for professional accounting advice.'],
 ];
+const CARD_BG = ['from-[#3a1d00] to-[#140a00]', 'from-[#1c1c1c] to-[#080808]', 'from-[#2b2010] to-[#0c0905]'];
+
+function Wordmark() {
+  return (
+    <Link href="/" className="inline-flex items-center gap-2" aria-label="Incomio home">
+      <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#FFB75A] text-lg font-extrabold text-[#FFB75A]">i</span>
+      <span className="text-2xl font-bold tracking-wide">INCOMIO</span>
+    </Link>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="bg-cream-50">
-      <header className="sticky top-0 z-30 border-b border-cream-200 bg-cream-50/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <Logo />
-          <nav className="hidden gap-6 text-sm md:flex" aria-label="Primary"><a href="#features">Features</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
-          <div className="flex gap-2"><Link href="/login" className="btn btn-ghost">Sign in</Link><Link href="/signup" className="btn btn-primary">Get Started</Link></div>
+    <div className="dark-site min-h-screen">
+      <header className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-4 px-4 py-5">
+        <Wordmark />
+        <div className="hidden items-center rounded-full border border-[#FFB75A]/40 bg-[#111] p-1.5 md:flex" role="tablist" aria-label="Audience">
+          <a href="#features" className="rounded-full bg-[#FFB75A] px-6 py-2 text-sm font-semibold text-black">Finance teams</a>
+          <a href="#use-cases" className="px-6 py-2 text-sm text-white/90">Businesses</a>
         </div>
+        <nav className="hidden gap-7 text-sm lg:flex" aria-label="Primary"><a href="#features">Products</a><a href="#how">How it works</a><a href="#faq">Support</a><a href="#pricing">Pricing</a></nav>
+        <div className="flex gap-3"><Link href="/login" className="btn btn-outline px-6 py-3">Login</Link><Link href="/signup" className="btn btn-amber px-6 py-3">Create an account</Link></div>
       </header>
 
-      <section className="bg-wine text-cream-50">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
-          <div>
-            <p className="mb-3 text-sm uppercase tracking-widest text-amber">AI income &amp; financial operations intelligence</p>
-            <h1 className="text-4xl font-semibold leading-tight md:text-5xl">Know What You&apos;re Owed. Understand What&apos;s Coming.</h1>
-            <p className="mt-5 max-w-xl text-cream-200">Incomio brings your invoices, payments and receivables together to help your finance team reconcile income, prioritize collections and understand future cash flow with AI-powered financial intelligence.</p>
-            <div className="mt-8 flex flex-wrap gap-3"><Link href="/signup" className="btn bg-amber px-6 py-3 text-wine hover:bg-[#e6a94f]">Get Started</Link><a href="#features" className="btn border border-cream-50/40 px-6 py-3 hover:bg-cream-50/10">Explore Features</a></div>
-          </div>
-          <div className="rounded-lg bg-cream-50 p-5 text-ink" aria-label="Illustration of receivables aging">
-            <div className="mb-3 flex items-center justify-between"><span className="font-display text-lg text-wine">Receivables aging</span><span className="text-xs text-ink-400">Illustration — not real data</span></div>
-            {[['Not due', 70, 'bg-forest'], ['1–30 days', 45, 'bg-amber'], ['31–60 days', 28, 'bg-terra'], ['61–90 days', 16, 'bg-wine-700'], ['90+ days', 9, 'bg-wine-900']].map(([l, w, c]) => (
-              <div key={String(l)} className="mb-2 flex items-center gap-3 text-xs"><span className="w-20 text-ink-600">{l}</span><div className="h-4 flex-1 rounded bg-cream"><div className={`h-4 rounded ${c}`} style={{ width: `${w}%` }} /></div></div>
-            ))}
-            <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs">{['Matched', 'To review', 'Follow-ups'].map((t) => <div key={t} className="rounded border border-cream-200 p-2"><div className="text-ink-600">{t}</div><div className="font-display text-lg text-wine">—</div></div>)}</div>
-          </div>
-        </div>
+      <section className="relative mx-auto max-w-[1200px] px-4 pb-16 pt-14 text-center">
+        <div className="coin floaty absolute left-2 top-6 hidden md:flex">$</div>
+        <div className="coin floaty absolute right-6 top-24 hidden h-16 w-16 text-2xl md:flex" style={{ animationDelay: '1s' }}>$</div>
+        <h1 className="mx-auto max-w-3xl text-5xl leading-[1.1] md:text-7xl"><span className="text-[#FFB75A]">Know what you&apos;re owed</span><br />understand what&apos;s coming</h1>
+        <p className="mx-auto mt-7 max-w-2xl text-lg text-white/90">Incomio brings your invoices, payments and receivables together to help your finance team reconcile income, prioritize collections and understand future cash flow with AI-powered financial intelligence.</p>
+        <div className="mt-9 flex flex-wrap justify-center gap-4"><Link href="/signup" className="btn btn-amber px-8 py-4 text-base">Get Started</Link><a href="#features" className="btn btn-outline px-8 py-4 text-base">Explore Features</a></div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="max-w-3xl text-3xl text-wine">One connected platform for the whole income cycle</h2>
-        <p className="mt-3 max-w-3xl text-ink-600">Financial data → understanding → AI analysis → risks and opportunities → recommended actions → human approval → outcome tracking. One shared data model, not five separate tools.</p>
+      <section className="mx-auto grid max-w-[1200px] gap-5 px-4 md:grid-cols-3" aria-label="Highlights">
+        {[['Know what is owed', 'Receivables and aging per customer and currency.'], ['Match every payment', 'Suggested matches with evidence, approved by your team.'], ['See cash coming', 'Scenario forecasts with assumptions you can adjust.']].map(([t, b], i) => (
+          <div key={t} className={`flex h-72 flex-col justify-end rounded-2xl bg-gradient-to-br ${CARD_BG[i]} p-6 ring-1 ring-white/10`}>
+            <div className="mb-auto h-1 w-12 rounded bg-[#FFB75A]" /><h3 className="text-2xl text-[#FFB75A]">{t}</h3><p className="mt-2 text-sm text-white/80">{b}</p>
+          </div>))}
       </section>
 
-      <section id="features" className="border-y border-cream-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-16">
-          <h2 className="text-3xl text-wine">Financial intelligence capabilities</h2>
-          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{CAPS.map(([t, b], i) => (
-            <article key={t} className="rounded-lg border border-cream-200 p-5"><div className={`mb-3 h-1 w-10 rounded ${['bg-wine', 'bg-forest', 'bg-terra', 'bg-amber', 'bg-wine', 'bg-forest'][i]}`} /><h3 className="text-xl text-wine">{t}</h3><p className="mt-2 text-sm text-ink-600">{b}</p></article>))}</div>
-        </div>
+      <section id="features" className="mx-auto max-w-[1200px] px-4 py-24">
+        <h2 className="text-4xl">Financial intelligence <span className="text-[#FFB75A]">capabilities</span></h2>
+        <p className="mt-3 max-w-2xl text-white/70">One connected platform for the whole income cycle, built on a single shared data model.</p>
+        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{CAPS.map(([t, b]) => (
+          <article key={t} className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-6"><div className="mb-4 h-1 w-10 rounded bg-[#FFB75A]" /><h3 className="text-xl">{t}</h3><p className="mt-2 text-sm text-white/70">{b}</p></article>))}</div>
       </section>
 
-      <section id="how" className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="text-3xl text-wine">How Incomio works</h2>
-        <ol className="mt-8 grid gap-5 md:grid-cols-4">{STEPS.map(([t, b], i) => <li key={t}><div className="font-display text-3xl text-terra">{i + 1}</div><h3 className="text-lg text-wine">{t}</h3><p className="mt-1 text-sm text-ink-600">{b}</p></li>)}</ol>
+      <section id="how" className="mx-auto max-w-[1200px] px-4 py-16">
+        <h2 className="text-4xl">How Incomio <span className="text-[#FFB75A]">works</span></h2>
+        <ol className="mt-10 grid gap-6 md:grid-cols-4">{STEPS.map(([t, b], i) => <li key={t} className="rounded-2xl border border-white/10 p-6"><div className="text-4xl font-extrabold text-[#FFB75A]">{i + 1}</div><h3 className="mt-2 text-lg">{t}</h3><p className="mt-1 text-sm text-white/70">{b}</p></li>)}</ol>
       </section>
 
-      <section className="bg-forest text-cream-50">
-        <div className="mx-auto max-w-6xl px-4 py-16">
-          <h2 className="text-3xl">Built for finance teams</h2>
-          <div className="mt-8 grid gap-5 md:grid-cols-4">{USE.map(([t, b]) => <div key={t}><h3 className="text-lg text-amber">{t}</h3><p className="mt-1 text-sm text-cream-200">{b}</p></div>)}</div>
-        </div>
+      <section id="use-cases" className="mx-auto max-w-[1200px] px-4 py-16">
+        <h2 className="text-4xl">Built for <span className="text-[#FFB75A]">finance teams</span></h2>
+        <div className="mt-10 grid gap-5 md:grid-cols-4">{USE.map(([t, b]) => <div key={t} className="rounded-2xl bg-[#FFB75A] p-6 text-black"><h3 className="text-lg">{t}</h3><p className="mt-2 text-sm text-black/80">{b}</p></div>)}</div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="text-3xl text-wine">Safeguards by design</h2>
-        <ul className="mt-6 grid gap-3 text-sm md:grid-cols-2">
-          {['Totals and forecasts come from deterministic, decimal-safe calculations — never from AI guesses.', 'Payments are only counted against an invoice after an authorised person approves the match.', 'Organization-level data isolation with row-level security and role-based permissions.', 'AI agents cannot transfer money, alter invoices or send customer messages. Approvals and audit logs are built in.', 'Core features keep working if the AI service is unavailable.', 'Integrations that are not built yet are labelled Coming Soon, never faked.'].map((x) => <li key={x} className="rounded border border-cream-200 bg-white p-3">{x}</li>)}
-        </ul>
+      <section className="mx-auto max-w-[1200px] px-4 py-16">
+        <h2 className="text-4xl">Safeguards <span className="text-[#FFB75A]">by design</span></h2>
+        <ul className="mt-8 grid gap-3 text-sm md:grid-cols-2">{['Totals and forecasts come from deterministic, decimal-safe calculations, never from AI guesses.', 'Payments count against an invoice only after an authorised person approves the match.', 'Organization-level data isolation with row-level security and role-based permissions.', 'AI agents cannot transfer money, alter invoices or send customer messages.', 'Core features keep working if the AI service is unavailable.', 'Integrations that are not built yet are labelled Coming Soon, never faked.'].map((x) => <li key={x} className="rounded-xl border border-white/10 bg-[#0d0d0d] p-4 text-white/80">{x}</li>)}</ul>
       </section>
 
-      <section id="pricing" className="border-y border-cream-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-16">
-          <h2 className="text-3xl text-wine">Pricing</h2>
-          <p className="mt-2 text-sm text-ink-600">Simple monthly plans. Billing is handled through a secure external payment page.</p>
-          <div className="mt-8 grid gap-5 md:grid-cols-3">{PLAN_KEYS.map((k, i) => (
-            <div key={k} className={`rounded-lg border p-6 ${i === 1 ? 'border-wine ring-2 ring-wine' : 'border-cream-200'}`}>
-              {i === 1 && <div className="mb-2 text-xs font-medium uppercase tracking-wide text-terra">Most chosen by finance teams</div>}
-              <h3 className="text-2xl text-wine">{PLANS[k].name}</h3><div className="num mt-1 font-display text-4xl">${PLANS[k].price}<span className="text-base text-ink-600">/month</span></div>
-              <p className="mt-2 text-sm text-ink-600">{PLANS[k].blurb}</p>
-              <ul className="mt-4 space-y-1 text-sm"><li>✓ Receivables, reconciliation &amp; collections</li><li>✓ Cash-flow forecasting</li><li>✓ AI agents &amp; Ask Incomio</li><li>✓ Reports &amp; CSV/PDF export</li></ul>
-              <Link href="/signup" className="btn btn-primary mt-5 w-full">Get Started</Link>
-            </div>))}</div>
-        </div>
+      <section id="pricing" className="mx-auto max-w-[1200px] px-4 py-24">
+        <h2 className="text-center text-4xl">Simple monthly <span className="text-[#FFB75A]">pricing</span></h2>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">{PLAN_KEYS.map((k, i) => (
+          <div key={k} className={`rounded-2xl border p-8 ${i === 1 ? 'border-[#FFB75A] bg-[#140d03]' : 'border-white/10 bg-[#0d0d0d]'}`}>
+            <h3 className="text-2xl">{PLANS[k].name}</h3>
+            <div className="num mt-2 text-5xl font-extrabold text-[#FFB75A]">${PLANS[k].price}<span className="text-base font-medium text-white/60">/month</span></div>
+            <p className="mt-3 text-sm text-white/70">{PLANS[k].blurb}</p>
+            <ul className="mt-5 space-y-2 text-sm text-white/85"><li>✓ Receivables, reconciliation &amp; collections</li><li>✓ Cash-flow forecasting</li><li>✓ AI agents &amp; Ask Incomio</li><li>✓ Reports &amp; CSV/PDF export</li></ul>
+            <Link href="/signup" className={`btn mt-7 w-full py-3 ${i === 1 ? 'btn-amber' : 'btn-outline'}`}>Get Started</Link>
+          </div>))}</div>
       </section>
 
       <section id="faq" className="mx-auto max-w-3xl px-4 py-16">
-        <h2 className="text-3xl text-wine">Frequently asked questions</h2>
-        <div className="mt-6 divide-y divide-cream-200 rounded-lg border border-cream-200 bg-white">{FAQ.map(([q, a]) => <details key={q} className="group p-4"><summary className="cursor-pointer font-medium text-ink">{q}</summary><p className="mt-2 text-sm text-ink-600">{a}</p></details>)}</div>
+        <h2 className="text-4xl">Frequently asked <span className="text-[#FFB75A]">questions</span></h2>
+        <div className="mt-8 divide-y divide-white/10 rounded-2xl border border-white/10">{FAQ.map(([q, a]) => <details key={q} className="p-5"><summary className="cursor-pointer font-semibold">{q}</summary><p className="mt-2 text-sm text-white/70">{a}</p></details>)}</div>
       </section>
 
-      <section className="bg-wine text-center text-cream-50">
-        <div className="mx-auto max-w-3xl px-4 py-16">
-          <h2 className="text-3xl">Every payment understood. Every receivable accounted for.</h2>
-          <p className="mt-2 text-cream-200">Every financial decision better informed.</p>
-          <Link href="/signup" className="btn mt-6 bg-amber px-6 py-3 text-wine hover:bg-[#e6a94f]">Get Started</Link>
+      <section className="mx-auto max-w-[1200px] px-4 py-16">
+        <div className="rounded-3xl bg-[#FFB75A] px-6 py-14 text-center text-black">
+          <h2 className="mx-auto max-w-2xl text-3xl md:text-4xl">Every payment understood. Every receivable accounted for.</h2>
+          <p className="mt-2 text-black/75">Every financial decision better informed.</p>
+          <Link href="/signup" className="btn mt-7 bg-black px-8 py-4 text-white hover:bg-[#222]">Get Started</Link>
         </div>
       </section>
 
-      <footer className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-8 text-sm text-ink-600">
-        <Logo /><p>© {new Date().getFullYear()} Incomio. Analytical software — not a bank or accounting advice.</p>
-        <div className="flex gap-4"><Link href="/login">Sign in</Link><Link href="/signup">Get Started</Link></div>
+      <footer className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-4 border-t border-white/10 px-4 py-8 text-sm text-white/60">
+        <Wordmark /><p>© {new Date().getFullYear()} Incomio. Analytical software, not a bank or accounting advice.</p>
+        <div className="flex gap-5"><Link href="/login">Login</Link><Link href="/signup">Create an account</Link></div>
       </footer>
     </div>
   );
