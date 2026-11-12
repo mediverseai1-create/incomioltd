@@ -11,7 +11,7 @@ const PAIN = [
   ['AI tools that invent answers', 'General chatbots make up figures. In finance, one fabricated number costs more than the time it saved.'],
   ['Scattered data, scattered teams', 'Invoices in one tool, bank exports in another, branches reporting differently. Nobody sees receivables across the whole business.'],
 ];
-const PILLARS = [
+const PILLARS: [string, string, string[]][] = [
   ['Receivables intelligence', 'Outstanding, overdue and aging per customer, branch and currency. A transparent priority score tells your team exactly who to contact first, and why.', ['Aging buckets from not due to 90+ days', 'Customer payment behaviour from confirmed payments', 'Priority score with every component explained']],
   ['Payment reconciliation', 'Incomio proposes invoice-to-payment matches and shows the evidence: reference, amount, customer, dates. Your team approves; only then is an invoice marked paid.', ['Partial, over- and under-payment detection', 'Duplicate payment candidates', 'Who approved what, and when']],
   ['Cash-flow forecasting', 'Best, expected and conservative scenarios built from open invoices, how each customer actually pays, supplier obligations and recurring costs.', ['Assumptions shown and adjustable', 'Potential shortfall weeks flagged', 'Confidence level based on available history']],
