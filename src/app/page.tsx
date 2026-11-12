@@ -32,7 +32,6 @@ const CONTROLS = [
 const PERSONAS = [['CFO / Finance Director', 'One trustworthy view of cash exposure across the business, with a defensible trail behind every figure.'], ['Finance Controller', 'Faster close: reconciliation proposals ready for review, discrepancies already explained.'], ['AR / Credit Control', 'A ranked worklist, ready-to-approve reminders and a clear history for every account.'], ['Accountants & firms', 'Give each client a clear receivables and cash picture without rebuilding spreadsheets.'], ['Multi-branch groups', 'Consolidated and per-unit reporting with permissions that keep teams in their lane.']];
 const STEPS = [['1', 'Import', 'Upload CSV, XLSX or PDF. Map columns, validate every row, preview, then confirm. Rejected and flagged rows are always shown, never silently dropped.'], ['2', 'Understand', 'Receivables, aging, payment behaviour and priorities are calculated instantly from your records.'], ['3', 'Reconcile & act', 'Review suggested matches, approve reminders and recommended actions with the evidence beside each.'], ['4', 'Forecast & report', 'Run scenarios, ask questions in plain language, and generate management reports in a click.']];
 const SOON = ['QuickBooks', 'Xero', 'Stripe', 'Paystack', 'Flutterwave', 'Bank feeds'];
-const MATRIX: [string, boolean, boolean, boolean][] = [['Receivables, invoices & payments', true, true, true], ['Reconciliation review queue', true, true, true], ['Cash-flow scenarios', true, true, true], ['Collections & AI reminder drafts', true, true, true], ['Ask Incomio & AI agents', true, true, true], ['Profitability & business units', true, true, true], ['Reports with CSV / print-to-PDF', true, true, true], ['Role-based team access', true, true, true]];
 const FAQ = [
   ['Does Incomio move money or contact my customers?', 'No. It analyses, recommends and drafts. It cannot initiate payments, change bank records or send customer messages, and every consequential action needs human approval.'],
   ['How is this different from asking a general AI chatbot?', 'A chatbot guesses. Incomio calculates every figure in code from your records, then uses AI only to explain and recommend. Answers cite the invoices and customers behind them, and it says so when data is missing.'],
@@ -157,12 +156,10 @@ export default function Home() {
             <h3 className="text-2xl">{PLANS[k].name}</h3>
             <div className={`num mt-2 text-5xl font-extrabold ${A}`}>${PLANS[k].price}<span className="text-base font-medium text-white/60">/month</span></div>
             <p className="mt-3 text-sm text-white/70">{PLANS[k].blurb}</p>
+            <ul className="mt-5 space-y-2 text-sm text-white/85">{PLANS[k].features.map((f) => <li key={f} className="flex gap-2"><span className={A}>✓</span>{f}</li>)}</ul>
             <Link href="/signup" className={`btn mt-6 w-full py-3 ${i === 1 ? 'btn-amber' : 'btn-outline'}`}>Get Started</Link>
           </div>))}</div>
-        <div className="mt-10 overflow-x-auto rounded-2xl border border-white/10"><table className="w-full min-w-[560px] text-left text-sm">
-          <thead className="bg-[#111]"><tr><th className="p-4">Included</th>{PLAN_KEYS.map((k) => <th key={k} className="p-4 text-center">{PLANS[k].name}</th>)}</tr></thead>
-          <tbody className="divide-y divide-white/10">{MATRIX.map(([f, a, b, c]) => <tr key={f}><td className="p-4">{f}</td>{[a, b, c].map((x, i) => <td key={i} className={`p-4 text-center ${A}`}>{x ? '✓' : '—'}</td>)}</tr>)}</tbody></table></div>
-        <p className="mt-4 text-xs text-white/50">Usage limits for AI operations per plan are being finalised; features listed are available on every plan.</p>
+        <p className="mt-8 text-center text-xs text-white/50">AI credits are spent per operation (a question to Ask Incomio, an agent run, a document extraction) and reset monthly. Your usage is always visible in Usage &amp; Billing.</p>
       </Sec>
 
       <Sec id="faq">

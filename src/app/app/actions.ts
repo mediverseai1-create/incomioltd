@@ -7,6 +7,8 @@ import { audit } from '@/lib/audit';
 import { can, type Role } from '@/lib/rbac';
 import { parseMoney, toDb, D } from '@/lib/money';
 import { suggestMatches } from '@/lib/calc/reconcile';
+import { PLANS } from '@/lib/plans';
+import { supabaseAdmin } from '@/lib/supabase/admin';
 import type { FormState } from '@/components/forms';
 
 const fail = (error: string): FormState => ({ error });
@@ -15,6 +17,11 @@ const CUR = z.string().length(3).transform((s) => s.toUpperCase());
 const optDate = z.string().optional().transform((s) => (s ? s : null)).refine((s) => s === null || !isNaN(Date.parse(s)), 'Invalid date');
 const optStr = z.string().optional().transform((s) => (s?.trim() ? s.trim() : null));
 const str = (fd: FormData) => Object.fromEntries([...fd.entries()].map(([k, v]) => [k, typeof v === 'string' ? v : '']));
+
+async function planOf(orgId: string) {
+  const { data } = await supabaseAdmin().from('subscriptions').select('plan,status').eq('organization_id', orgId).maybeSingle();
+  return data?.status === 'active' && data.plan !== 'none' ? PLANS[data.plan as keyof typeof PLANS] : null;
+}
 
 async function guard(perm: Parameters<typeof can>[1]) {
   const c = await getCtx();
@@ -74,6 +81,11 @@ export const createObligation = wrap(async ({ supabase, org, user }, fd) => {
 
 export const createUnit = wrap(async ({ supabase, org, user }, fd) => {
   const v = z.object({ name: z.string().min(1, 'Name is required'), kind: z.enum(['business', 'subsidiary', 'branch', 'department', 'location']) }).parse(str(fd));
+  const plan = await planOf(org.id);
+  if (plan?.businessUnits != null) {
+    const { count } = await supabase.from('business_units').select('id', { count: 'exact', head: true }).eq('organization_id', org.id);
+    if ((count ?? 0) >= plan.businessUnits) return fail(`Your ${plan.name} plan includes ${plan.businessUnits} business unit(s). Upgrade to add more.`);
+  }
   const { data, error } = await supabase.from('business_units').insert({ ...v, organization_id: org.id }).select('id').single();
   if (error) return fail(error.message);
   await audit(supabase, org.id, user.id, 'business_unit.created', 'business_unit', data.id);
@@ -189,6 +201,11 @@ export async function reviewInsight(id: string, status: 'reviewed' | 'dismissed'
 
 export const inviteMember = wrap(async ({ supabase, org, user }, fd) => {
   const v = z.object({ email: z.string().email('Enter a valid email'), role: z.enum(['administrator', 'cfo', 'finance_manager', 'accountant', 'ar_officer', 'department_manager', 'executive_viewer']) }).parse(str(fd));
+  const plan = await planOf(org.id);
+  if (plan?.seats != null) {
+    const { count } = await supabase.from('organization_members').select('id', { count: 'exact', head: true }).eq('organization_id', org.id);
+    if ((count ?? 0) >= plan.seats) return fail(`Your ${plan.name} plan includes up to ${plan.seats} team members. Upgrade to add more.`);
+  }
   const { error } = await supabase.from('organization_members').insert({ organization_id: org.id, invited_email: v.email.toLowerCase(), role: v.role, status: 'invited' });
   if (error) return fail(error.message);
   await audit(supabase, org.id, user.id, 'member.invited', 'member', undefined, v);
